@@ -29,4 +29,19 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    console.log("Requested publicId:", req.params.id);
+    const flipbook = await Flipbook.findOneAndDelete({
+      publicId: req.params.id,
+    });
+    console.log("Found flipbook:", flipbook);
+    if (!flipbook) return res.status(404).json({ message: "Not found" });
+    res.json(flipbook);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
