@@ -8,8 +8,8 @@ const app = express();
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 var corsOptions = {
-  origin: "http://localhost:5173",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: "https://flipbook-frontend-pi.vercel.app/",
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 // Serve uploads folder statically
