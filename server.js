@@ -15,10 +15,13 @@ app.use(cors(corsOptions));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/flipbooks", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://pviresh508_db_user:<61qafrUwvmvEKkhx>@flipbookcluster.iahepgi.mongodb.net/?retryWrites=true&w=majority&appName=Flipbookcluster",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Flipbook schema
 const flipbookSchema = new mongoose.Schema({
