@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
-
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
@@ -15,14 +16,17 @@ app.use(cors(corsOptions));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://pviresh508_db_user:<61qafrUwvmvEKkhx>@flipbookcluster.iahepgi.mongodb.net/?retryWrites=true&w=majority&appName=Flipbookcluster",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("✅ MongoDB connected");
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1);
   }
-);
+};
 
+connectDB();
 // Flipbook schema
 const flipbookSchema = new mongoose.Schema({
   title: String,
